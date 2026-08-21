@@ -119,7 +119,7 @@ bool HttpServer::Start(const std::string& bind, uint16_t port, const std::string
     if (inet_pton(AF_INET, bind.c_str(), &addr.sin_addr) != 1)
         addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    if (bind(m_listenFd, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) < 0) {
+    if (::bind(m_listenFd, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) < 0) {
         close(m_listenFd);
         m_listenFd = -1;
         return false;
