@@ -77,7 +77,7 @@ struct BloodlineSeed {
 static BloodlineSeed PickBloodline()
 {
     static const BloodlineSeed seeds[] = {
-        {1, 1}, {2, 1}, {3, 6}, {4, 6}, {5, 9}, {7, 12}, {8, 12}
+        {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}, {7, 1}, {8, 1}
     };
     return seeds[RandU(0, 6)];
 }
