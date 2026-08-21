@@ -223,7 +223,7 @@ void BotMgr::DespawnOne()
     m_offline.push_back(rec);
     BotDB::UpdateActivity(charID, "docked");
     if (client != nullptr)
-        client->CloseClientConnection();
+        client->DisconnectClient();
 }
 
 void BotMgr::ReconcilePopulation()
@@ -284,7 +284,7 @@ void BotMgr::OnShutdown()
         m_status = "stopped";
     }
     for (Client* c : toClose)
-        c->CloseClientConnection();
+        c->DisconnectClient();
 }
 
 } // namespace EvEmuBots

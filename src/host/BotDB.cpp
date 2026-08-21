@@ -1,4 +1,5 @@
 #include "eve-server.h"
+#include "EntityList.h"
 #include "host/BotDB.h"
 
 namespace EvEmuBots {
@@ -51,6 +52,25 @@ bool BotDB::Insert(const BotRecord& rec)
         return false;
     }
     return true;
+}
+
+uint32_t BotDB::CreateAccount(const std::string& login, const std::string& pass,
+                              const std::string& hash, int64_t role)
+{
+    uint32 accountID = 0;
+    uint32 clientID = sEntityList.GetClientSeed();
+    DBerror err;
+    if (!sDatabase.RunQueryLID(err, accountID,
+        "INSERT INTO account ( accountName, password, hash, role, clientID )"
+        " VALUES ( '%s', '%s', '%s', %llu, %u )",
+        login.c_str(), pass.c_str(), hash.c_str(),
+        static_cast<unsigned long long>(role), clientID))
+    {
+        sLog.Error("evemu-bots", "Failed to create account '%s': %s", login.c_str(), err.c_str());
+        return 0;
+    }
+    sDatabase.RunQuery(err, "UPDATE srvStatus SET ClientSeed = ClientSeed + 1 WHERE AI = 1");
+    return accountID;
 }
 
 bool BotDB::UpdateActivity(uint32_t characterID, const std::string& activity)

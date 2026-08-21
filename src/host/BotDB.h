@@ -21,6 +21,8 @@ class BotDB {
 public:
     static bool EnsureSchema();
     static bool Insert(const BotRecord& rec);
+    static uint32_t CreateAccount(const std::string& login, const std::string& pass,
+                                  const std::string& hash, int64_t role);
     static bool UpdateActivity(uint32_t characterID, const std::string& activity);
     static bool LoadAll(std::vector<BotRecord>& out);
     static bool NameTaken(const std::string& name);

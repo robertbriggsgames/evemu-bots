@@ -5,6 +5,10 @@
 #include "population/BotConfig.h"
 #include "services/ServiceManager.h"
 
+using EvEmuBots::BotConfig;
+using EvEmuBots::BotMgr;
+using EvEmuBots::HttpServer;
+
 extern "C" void EvEmu_Module_OnServerReady(EVEServiceManager* svc)
 {
     auto& cfg = BotConfig::Instance();

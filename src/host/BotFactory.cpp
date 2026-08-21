@@ -138,7 +138,7 @@ bool BotFactory::CreateNewBot(EVEServiceManager& svc, const BotProfile& profile,
     sDatabase.DoEscapeString(escPass, pass);
     sDatabase.DoEscapeString(escHash, hash);
 
-    uint32_t accountID = ServiceDB::CreateNewAccount(escLogin.c_str(), escPass.c_str(), escHash.c_str(), Acct::Role::STD);
+    uint32_t accountID = BotDB::CreateAccount(escLogin, escPass, escHash, Acct::Role::STD);
     if (accountID == 0) {
         sLog.Error("evemu-bots", "CreateNewAccount failed for %s", accountName.c_str());
         return false;
@@ -152,7 +152,7 @@ bool BotFactory::CreateNewBot(EVEServiceManager& svc, const BotProfile& profile,
     const CharacterType* charType = sItemFactory.GetCharacterTypeByBloodline(seed.bloodlineID);
     if (charType == nullptr) {
         sLog.Error("evemu-bots", "No character type for bloodline %u", seed.bloodlineID);
-        client->CloseClientConnection();
+        client->DisconnectClient();
         client = nullptr;
         return false;
     }
@@ -222,7 +222,7 @@ bool BotFactory::CreateNewBot(EVEServiceManager& svc, const BotProfile& profile,
         sLog.Error("evemu-bots", "SpawnCharacter failed for '%s'", cdata.name.c_str());
         sItemFactory.UnsetUsingClient();
         client->CreateChar(false);
-        client->CloseClientConnection();
+        client->DisconnectClient();
         client = nullptr;
         return false;
     }
