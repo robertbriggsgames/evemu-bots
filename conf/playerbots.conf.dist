@@ -1,0 +1,38 @@
+# evemu-bots playerbots configuration
+# Copy to the EVEmu config directory as playerbots.conf
+# (Docker bind-mount: /opt/evemu/source/evemu_Crucible/config/playerbots.conf)
+
+# Master switch. false = module loads but spawns nobody and does not bind the API.
+enabled = true
+
+# How many server-side playerbots to keep online. C2 can change this at runtime.
+targetCount = 0
+
+# New bots (or resumes) per server tick. Keep low so login does not hitch.
+spawnPerTick = 1
+
+# Control API (docker-internal). Do not publish this port to the LAN.
+apiBind = 0.0.0.0
+apiPort = 8091
+authToken = changeme
+
+# Career mix (normalized if the weights do not sum to 1)
+mix.miner = 0.22
+mix.ratter = 0.18
+mix.industrialist = 0.16
+mix.hauler = 0.12
+mix.trader = 0.12
+mix.explorer = 0.08
+mix.pvper = 0.12
+
+# Skillpoint bands (not everyone in a Titan)
+sp.starter = 0.35
+sp.small = 0.30
+sp.cruiser = 0.20
+sp.battleship = 0.12
+sp.specialist = 0.03
+
+# Space security placement
+sec.high = 0.70
+sec.low = 0.20
+sec.null = 0.10

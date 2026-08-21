@@ -1,0 +1,21 @@
+-- Additive bot tables. Safe to run more than once.
+-- Does not alter upstream EVEmu schema except by creating these tables.
+
+CREATE TABLE IF NOT EXISTS bot_meta (
+  characterID INT UNSIGNED NOT NULL PRIMARY KEY,
+  accountID INT UNSIGNED NOT NULL,
+  career VARCHAR(32) NOT NULL,
+  spBand VARCHAR(32) NOT NULL,
+  securityBand VARCHAR(16) NOT NULL,
+  activity VARCHAR(32) NOT NULL DEFAULT 'docked',
+  createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS bot_org (
+  orgID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  kind VARCHAR(16) NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  eveCorpID INT UNSIGNED NULL,
+  eveAllianceID INT UNSIGNED NULL,
+  createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

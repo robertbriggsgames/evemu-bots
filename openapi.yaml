@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: EVEmu Playerbots Control API
+  version: 0.1.0
+  description: >
+    In-process control plane for the evemu-bots add-on. Bound on docker-internal
+    port 8091. C2 is the intended client. Mutating calls are queued onto the
+    EVEmu main thread.
+servers:
+  - url: http://server:8091
+security:
+  - bearerAuth: []
+paths:
+  /v1/health:
+    get:
+      summary: Module health
+      responses:
+        "200":
+          description: Health payload
+  /v1/population:
+    get:
+      summary: Target and online counts plus career mix
+      responses:
+        "200":
+          description: Population state
+    put:
+      summary: Set target count and optional career mix
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetCount:
+                  type: integer
+                  minimum: 0
+                mix:
+                  type: object
+                  additionalProperties:
+                    type: number
+      responses:
+        "200":
+          description: Queued
+  /v1/bots:
+    get:
+      summary: Roster of online playerbots
+      responses:
+        "200":
+          description: Bot list
+  /v1/bots/{id}:
+    get:
+      summary: Single bot
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Bot
+        "404":
+          description: Not found
+  /metrics:
+    get:
+      summary: Prometheus text exposition (no auth)
+      security: []
+      responses:
+        "200":
+          description: Metrics
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

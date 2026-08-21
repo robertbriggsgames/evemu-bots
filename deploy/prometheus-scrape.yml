@@ -1,0 +1,12 @@
+# Prometheus scrape snippet for evemu-bots
+#
+# Merge into /opt/evemu/monitoring/prometheus/prometheus.yml
+# The server container already shares the evemu_crucible_default network.
+
+  - job_name: evemu-bots
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["server:8091"]
+        labels:
+          service: evemu-bots
+          instance: evemu-playerbots

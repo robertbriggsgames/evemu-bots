@@ -1,0 +1,9 @@
+This add-on is licensed under the GNU Lesser General Public License
+version 3 (LGPL-3.0-or-later), the same family of license used by EVEmu.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+Because this module is intended to be linked into eve-server, LGPL is
+required so the add-on can be added or removed without changing the
+license of the EVEmu core.
