@@ -30,10 +30,6 @@ TARGET_INCLUDE_DIRECTORIES(eve-server PRIVATE
   "${EVEMU_BOTS_DIR}/src"
 )
 
-IF(UNIX)
-  TARGET_LINK_LIBRARIES(eve-server pthread)
-ENDIF()
-
 INSTALL(FILES "${EVEMU_BOTS_DIR}/conf/playerbots.conf.dist" DESTINATION "etc")
 INSTALL(FILES "${EVEMU_BOTS_DIR}/sql/001_bot_meta.sql" DESTINATION "etc/sql")
 
